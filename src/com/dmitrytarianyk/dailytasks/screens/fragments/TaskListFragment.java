@@ -7,7 +7,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
@@ -21,8 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.dmitrytarianyk.dailytasks.BaseFragment;
 import com.dmitrytarianyk.dailytasks.R;
-import com.dmitrytarianyk.dailytasks.screens.objects.Event;
-import com.dmitrytarianyk.dailytasks.screens.objects.EventCollection;
+import com.dmitrytarianyk.dailytasks.objects.Event;
+import com.dmitrytarianyk.dailytasks.objects.EventCollection;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

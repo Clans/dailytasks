@@ -1,4 +1,4 @@
-package com.dmitrytarianyk.dailytasks.screens.objects;
+package com.dmitrytarianyk.dailytasks.objects;
 
 public class Event {
 

@@ -1,4 +1,4 @@
-package com.dmitrytarianyk.dailytasks.screens.objects;
+package com.dmitrytarianyk.dailytasks.objects;
 
 import java.util.Vector;
 
