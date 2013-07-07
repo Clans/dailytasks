@@ -2,26 +2,30 @@ package com.dmitrytarianyk.dailytasks.screens.fragments;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.dmitrytarianyk.dailytasks.BaseFragment;
 import com.dmitrytarianyk.dailytasks.R;
+import com.dmitrytarianyk.dailytasks.database.TasksDataSource;
 import com.dmitrytarianyk.dailytasks.objects.Event;
 import com.dmitrytarianyk.dailytasks.objects.EventCollection;
+import com.dmitrytarianyk.dailytasks.screens.activities.AddEventActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +33,6 @@ import java.util.Date;
 
 public class TaskListFragment extends BaseFragment {
 
-    @SuppressLint("InlinedApi")
     public static final String[] EVENT_PROJECTION = new String[] {
             Calendars._ID,                           // 0
             Calendars.ACCOUNT_NAME,                  // 1
@@ -46,6 +49,13 @@ public class TaskListFragment extends BaseFragment {
     private long calID;
     private Account[] accounts;
     private EventsAdapter adapter;
+    private TasksDataSource dataSource;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +64,6 @@ public class TaskListFragment extends BaseFragment {
         return mView;
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -70,7 +79,38 @@ public class TaskListFragment extends BaseFragment {
                 false, null, null, null, null);
         startActivityForResult(intent, REQUEST_ACCOUNT);*/
 
+        dataSource = new TasksDataSource(getActivity());
+        dataSource.open();
+
         loadEvents();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.tasks_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                startActivity(new Intent(getActivity(), AddEventActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        dataSource.open();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        dataSource.close();
+        super.onPause();
     }
 
     private void loadEvents() {
@@ -89,10 +129,15 @@ public class TaskListFragment extends BaseFragment {
                     calID = cur.getLong(PROJECTION_ID_INDEX);
                 }
 
-                Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI, new String[]{Events.CALENDAR_ID,
+                /*Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI, new String[]{Events.CALENDAR_ID,
                         Events.TITLE, Events.DESCRIPTION, Events.DTSTART, Events.DTEND, Events.RRULE},
                         Events.CALENDAR_ID + " = " + calID + " AND " + Events.DTSTART + " BETWEEN " + getDtStart() +
-                                " AND " + getDtEnd(), null, Events.DTSTART + " ASC");
+                                " AND " + getDtEnd(), null, Events.DTSTART + " ASC");*/
+
+                Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI, new String[]{Events.CALENDAR_ID,
+                        Events.TITLE, Events.DESCRIPTION, Events.DTSTART, Events.DTEND, Events.RRULE},
+                        Events.CALENDAR_ID + " = " + calID + " AND " + Events.DTSTART + " = " + getDay(),
+                        null, Events.DTSTART + " ASC");
 
                 /*Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
                 ContentUris.appendId(builder, curMonthStart);
@@ -121,6 +166,7 @@ public class TaskListFragment extends BaseFragment {
                     eventCollection.addEvent(event);
                 }
 
+                eventCollection.addAll(dataSource.getAllTasks());
                 updateUi();
             }
         }).start();
@@ -140,6 +186,16 @@ public class TaskListFragment extends BaseFragment {
      */
     private long getDtEnd() {
         return new Date().getTime() + DateUtils.WEEK_IN_MILLIS;
+    }
+
+    private long getDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+
+        return calendar.getTime().getTime();
     }
 
     /*private long getCurrentMonthStart() {
@@ -186,6 +242,13 @@ public class TaskListFragment extends BaseFragment {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (eventCollection.size() == 0) {
+                    showEmptyView();
+                    return;
+                }
+
+                hideEmptyView();
+
                 ListView list = (ListView) mView.findViewById(R.id.list);
 
                 if (list.getAdapter() == null) {
@@ -193,6 +256,42 @@ public class TaskListFragment extends BaseFragment {
                     list.setAdapter(adapter);
                 } else {
                     adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void showEmptyView() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ListView list = (ListView) mView.findViewById(R.id.list);
+                final TextView empty = (TextView) mView.findViewById(R.id.empty);
+
+                if (list != null) {
+                    list.setVisibility(View.GONE);
+                }
+
+                if (empty != null) {
+                    empty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void hideEmptyView() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ListView list = (ListView) mView.findViewById(R.id.list);
+                TextView empty = (TextView) mView.findViewById(R.id.empty);
+
+                if (list != null) {
+                    list.setVisibility(View.VISIBLE);
+                }
+
+                if (empty != null) {
+                    empty.setVisibility(View.GONE);
                 }
             }
         });

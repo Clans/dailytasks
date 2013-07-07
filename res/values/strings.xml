@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Daily Tasks</string>
+    <string name="no_tasks">No tasks were found</string>
+    <string name="title">Title</string>
 </resources>

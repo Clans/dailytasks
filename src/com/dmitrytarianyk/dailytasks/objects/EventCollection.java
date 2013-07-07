@@ -10,6 +10,10 @@ public class EventCollection {
         events.addElement(event);
     }
 
+    public void addAll(EventCollection eventCollection) {
+        this.events.addAll(eventCollection.asVector());
+    }
+
     public Event getEvent(int location) {
         return events.get(location);
     }

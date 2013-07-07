@@ -15,7 +15,7 @@
 	<application
 			android:label="@string/app_name"
 			android:icon="@drawable/ic_launcher"
-			android:theme="@style/ThemeBlueLight"
+			android:theme="@style/Theme.Themebluelight"
 			android:allowBackup="true">
 
 		<activity
@@ -26,6 +26,8 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+
+        <activity android:name=".screens.activities.AddEventActivity"/>
 
 	</application>
 </manifest>
