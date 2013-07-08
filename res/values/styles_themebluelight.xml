@@ -36,6 +36,7 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_themebluelight</item>
         <item name="android:backgroundSplit">@drawable/ab_background_textured_themebluelight</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Themebluelight</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
     </style>
 
     <style name="ActionBar.Transparent.Themebluelight" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -73,6 +74,30 @@
     <style name="Theme.Themebluelight.Widget" parent="@android:style/Theme.Holo">
         <item name="android:popupMenuStyle">@style/PopupMenu.Themebluelight</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Themebluelight</item>
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:background">?android:listDivider</item>
+    </style>
+
+    <style name="Divider.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="Divider.Vertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Divider.Vertical.ActionBar">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">#55FFFFFF</item>
     </style>
 
 </resources>

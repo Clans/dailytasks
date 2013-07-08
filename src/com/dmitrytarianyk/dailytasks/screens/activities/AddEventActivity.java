@@ -1,6 +1,8 @@
 package com.dmitrytarianyk.dailytasks.screens.activities;
 
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dmitrytarianyk.dailytasks.BaseActivity;
 import com.dmitrytarianyk.dailytasks.R;
@@ -16,5 +18,19 @@ public class AddEventActivity extends BaseActivity {
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().add(R.id.frag_container, new AddEventFragment()).commit();
         }
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setCustomView(R.layout.actionbar_done_discard);
+        }
+
+        findViewById(R.id.actionbar_discard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

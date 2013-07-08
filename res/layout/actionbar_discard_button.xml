@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/actionbar_discard"
+        style="?android:actionButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true">
+
+    <TextView
+            style="?android:actionBarTabTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp"
+            android:textColor="@android:color/white"
+            android:text="@android:string/cancel"
+            android:drawableLeft="@drawable/ic_navigation_cancel"
+            android:drawablePadding="8dp"/>
+
+</FrameLayout>

@@ -129,15 +129,11 @@ public class TaskListFragment extends BaseFragment {
                     calID = cur.getLong(PROJECTION_ID_INDEX);
                 }
 
-                /*Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI, new String[]{Events.CALENDAR_ID,
-                        Events.TITLE, Events.DESCRIPTION, Events.DTSTART, Events.DTEND, Events.RRULE},
-                        Events.CALENDAR_ID + " = " + calID + " AND " + Events.DTSTART + " BETWEEN " + getDtStart() +
-                                " AND " + getDtEnd(), null, Events.DTSTART + " ASC");*/
-
-                Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI, new String[]{Events.CALENDAR_ID,
-                        Events.TITLE, Events.DESCRIPTION, Events.DTSTART, Events.DTEND, Events.RRULE},
-                        Events.CALENDAR_ID + " = " + calID + " AND " + Events.DTSTART + " = " + getDay(),
-                        null, Events.DTSTART + " ASC");
+                Cursor cursor = mActivity.getContentResolver().query(Events.CONTENT_URI,
+                        new String[]{Events.CALENDAR_ID, Events.TITLE, Events.DESCRIPTION,
+                                Events.DTSTART, Events.DTEND, Events.RRULE},
+                        Events.CALENDAR_ID + " = " + calID + " AND " + Events.DTSTART + " BETWEEN "
+                                + getDtStart() + " AND " + getDtEnd(), null, Events.DTSTART + " ASC");
 
                 /*Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
                 ContentUris.appendId(builder, curMonthStart);
@@ -177,18 +173,6 @@ public class TaskListFragment extends BaseFragment {
      * @return One week earlier from now in millis
      */
     private long getDtStart() {
-        return new Date().getTime() - DateUtils.WEEK_IN_MILLIS;
-    }
-
-    /**
-     *
-     * @return One week later from now in millis
-     */
-    private long getDtEnd() {
-        return new Date().getTime() + DateUtils.WEEK_IN_MILLIS;
-    }
-
-    private long getDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -196,6 +180,14 @@ public class TaskListFragment extends BaseFragment {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
 
         return calendar.getTime().getTime();
+    }
+
+    /**
+     *
+     * @return One week later from now in millis
+     */
+    private long getDtEnd() {
+        return getDtStart() + DateUtils.DAY_IN_MILLIS;
     }
 
     /*private long getCurrentMonthStart() {
