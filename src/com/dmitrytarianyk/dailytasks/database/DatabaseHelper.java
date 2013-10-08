@@ -21,10 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         DatesTable.onCreate(db);
         TasksTable.onCreate(db);
         String query1 = "INSERT INTO " + DatesTable.TABLE_NAME + "(" + DatesTable.COLUMN_DATE
-                + ") VALUES ('10.06.2013');";
+                + ") VALUES ('10.10.2013');";
         String query2 = "INSERT INTO " + TasksTable.TABLE_NAME + "(" + TasksTable.COLUMN_TITLE + ", "
                 + TasksTable.COLUMN_DATE_TIME + ", " + TasksTable.COLUMN_DESCRIPTION + ", "
-                + TasksTable.COLUMN_DATE_ID + ") VALUES ('Mr. Bojangles', '10.06.2013', 'Sample description', 1, 0);";
+                + TasksTable.COLUMN_DATE_ID + ") VALUES ('Mr. Bojangles', '10.10.2013', 'Sample description', 1, 0);";
         Log.i(Constants.LOG_TAG, "DatabaseHelper.onCreate: " + query1);
         Log.i(Constants.LOG_TAG, "DatabaseHelper.onCreate: " + query2);
 //        db.execSQL(query1);

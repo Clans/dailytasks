@@ -2,6 +2,7 @@
 <resources>
 
     <style name="ThemeBlueLight" parent="android:Theme.Holo.Light">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
 
     </style>
 

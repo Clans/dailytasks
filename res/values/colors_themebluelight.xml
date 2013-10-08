@@ -19,4 +19,5 @@
 
 <resources>
     <color name="pressed_themebluelight">#CC0099CC</color>
+    <color name="list_time_bg">#C5EAF8</color>
 </resources>

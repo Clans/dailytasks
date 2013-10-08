@@ -1,6 +1,5 @@
 package com.dmitrytarianyk.dailytasks.screens.activities;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import com.dmitrytarianyk.dailytasks.BaseActivity;
 import com.dmitrytarianyk.dailytasks.R;

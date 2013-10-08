@@ -1,10 +1,12 @@
 package com.dmitrytarianyk.dailytasks.objects;
 
+import android.database.Cursor;
+
 public class Event {
 
     private String title;
-    private String startDate;
-    private String endDate;
+    private long startMillis;
+    private long endMillis;
     private String description;
 
     public String getTitle() {
@@ -15,20 +17,20 @@ public class Event {
         this.title = title;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public long getStartMillis() {
+        return startMillis;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartMillis(long startMillis) {
+        this.startMillis = startMillis;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public long getEndMillis() {
+        return endMillis;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEndMillis(long endMillis) {
+        this.endMillis = endMillis;
     }
 
     public String getDescription() {
@@ -37,5 +39,15 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static Event fromCursor(Cursor cursor) {
+        Event event = new Event();
+        event.setTitle(cursor.getString(1));
+        event.setDescription(cursor.getString(2));
+        event.setStartMillis(cursor.getLong(3));
+        event.setEndMillis(cursor.getLong(4));
+
+        return event;
     }
 }

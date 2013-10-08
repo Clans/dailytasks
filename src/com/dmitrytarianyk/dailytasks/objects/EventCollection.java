@@ -1,5 +1,7 @@
 package com.dmitrytarianyk.dailytasks.objects;
 
+import android.database.Cursor;
+
 import java.util.Vector;
 
 public class EventCollection {
@@ -24,5 +26,16 @@ public class EventCollection {
 
     public int size() {
         return events.size();
+    }
+
+    public static EventCollection fromCursor(Cursor cursor) {
+        EventCollection collection = new EventCollection();
+
+        while (cursor != null && cursor.moveToNext()) {
+            Event event = Event.fromCursor(cursor);
+            collection.addEvent(event);
+        }
+
+        return collection;
     }
 }
