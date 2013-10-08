@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import com.dmitrytarianyk.dailytasks.R;
 import com.dmitrytarianyk.dailytasks.database.TasksDataSource;
 import com.dmitrytarianyk.dailytasks.objects.Event;
 import com.dmitrytarianyk.dailytasks.objects.EventCollection;
-import com.dmitrytarianyk.dailytasks.screens.activities.AddEventActivity;
+import com.dmitrytarianyk.dailytasks.screens.activities.EditEventActivity;
 import com.dmitrytarianyk.dailytasks.screens.activities.PreferencesActivity;
 import com.dmitrytarianyk.dailytasks.util.PreferenceHelper;
 
@@ -71,7 +70,7 @@ public class TaskListFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add:
-                startActivity(new Intent(getActivity(), AddEventActivity.class));
+                startActivity(new Intent(getActivity(), EditEventActivity.class));
                 break;
             case R.id.menu_settings:
                 startActivity(new Intent(getActivity(), PreferencesActivity.class));

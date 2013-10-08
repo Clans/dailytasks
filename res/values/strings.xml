@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">Daily Tasks</string>
     <string name="no_tasks">No tasks were found</string>
-    <string name="title">Title</string>
+    <string name="event_name">Event name</string>
     <string name="save">Save</string>
     <string name="add_new_task">Add new task</string>
     <string name="settings">Settings</string>
+    <string name="date_format">E, MMM d, yyyy</string>
 </resources>

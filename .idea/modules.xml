@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dailytasks.iml" filepath="$PROJECT_DIR$/dailytasks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/submodules/datetimepicker/datetimepicker.iml" filepath="$PROJECT_DIR$/submodules/datetimepicker/datetimepicker.iml" />
     </modules>
   </component>
 </project>

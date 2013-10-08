@@ -29,6 +29,7 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_themebluelight</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_themebluelight</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Themebluelight</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
     <style name="ActionBar.Solid.Themebluelight" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">

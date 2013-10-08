@@ -1,0 +1,3 @@
+[submodule "submodules/datetimepicker"]
+	path = submodules/datetimepicker
+	url = https://github.com/Clans/datetimepicker.git

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:padding="8dp">
+        android:padding="16dp">
 
     <LinearLayout
             android:orientation="vertical"
@@ -14,8 +14,33 @@
 
         <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/title"/>
+                android:layout_height="?android:listPreferredItemHeightSmall"
+                android:hint="@string/event_name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="?android:listPreferredItemHeightSmall"
+                android:layout_weight="2"
+                android:padding="12dp"
+                android:text="Tue, Oct 1, 2013"
+                style="@android:style/Widget.Holo.Light.Spinner"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="?android:listPreferredItemHeightSmall"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:text="15:00"
+                style="@android:style/Widget.Holo.Light.Spinner"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

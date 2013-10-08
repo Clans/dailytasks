@@ -6,9 +6,9 @@ import android.view.View;
 
 import com.dmitrytarianyk.dailytasks.BaseActivity;
 import com.dmitrytarianyk.dailytasks.R;
-import com.dmitrytarianyk.dailytasks.screens.fragments.AddEventFragment;
+import com.dmitrytarianyk.dailytasks.screens.fragments.EditEventFragment;
 
-public class AddEventActivity extends BaseActivity {
+public class EditEventActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class AddEventActivity extends BaseActivity {
         setContentView(R.layout.task_list_activity);
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(R.id.frag_container, new AddEventFragment()).commit();
+            getFragmentManager().beginTransaction().add(R.id.frag_container, new EditEventFragment()).commit();
         }
 
         ActionBar actionBar = getActionBar();
